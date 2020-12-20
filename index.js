@@ -5,6 +5,7 @@ if (process.env.NODE_ENV != 'production') {
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const loginRouter = require('./Routes/login')
 const foodRouter = require('./Routes/food');
 const exerciseRouter = require('./Routes/exercise');
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
     res.send('<h1>Hello world</h1>');
 });
 
+app.use('/login', loginRouter)
 app.use('/food', foodRouter);
 app.use('/exercise', exerciseRouter);
 
