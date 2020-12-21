@@ -1,13 +1,32 @@
 const express = require('express');
-const Exercise = require('../Models/Exercise');
 const router = express.Router();
+const Exercise = require('../models/Exercise');
+const verify = require('./verifyToken')
 
-router.get('/', (req, res) => {
-    res.send('you are at the exercise log');
+router.get('/', verify, (req, res) => {
+    res.json({
+        posts: {
+            title: "hello everyone",
+            description: "post post post post"
+        }
+    })
 });
 
-router.get('/entry', (req, res) => {
-    res.send('enter your activity');
+router.post('/entry', async (req, res) => {
+    let exercise = new Exercise({
+        activity: req.body.activity,
+        time: req.body.time,
+        caloriesBurned: req.body.caloriesBurned,
+        description: req.body.description
+    })
+
+    try {
+        exercise = await exercise.save()
+        res.send(exercise)
+    } catch (err) {
+        res.send('not registered')
+        console.log(err)
+    }
 });
 
 module.exports = router;
