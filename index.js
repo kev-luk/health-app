@@ -34,7 +34,6 @@ app.use('/auth', authRouter)
 app.use('/food', foodRouter);
 app.use('/exercise', exerciseRouter);
 
-
 app.listen(PORT, () => {
     console.log('Server is running...');
 });
