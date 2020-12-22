@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const verify = require('./verifyToken')
+const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 router.get('/', (req, res) => {
     res.render('welcome');
 });
 
-router.get('/dashboard', verify, (req, res) => {
-    res.send('you have access')
+router.get('/dashboard', ensureAuthenticated, (req, res) => {
+    res.render('dashboard')
 });
 
 module.exports = router;

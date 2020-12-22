@@ -21,7 +21,7 @@ body {
 .welcome-section, 
 .register-section {
     width: 50%;
-    border: 2px solid #e7e7e7;
+    border: 2px solid #e5e5e5;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -31,7 +31,21 @@ body {
 }
 
 .welcome-header {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 0.2em;
+}
+
+.welcome-header h1{
     font-size: 3.5rem;
+}
+
+.logo {
+    display: inline;
+    width: 50px;
+    height: 50px;
+    margin-left: 0.2em;
 }
 
 .welcome-message {
@@ -60,7 +74,7 @@ body {
 }
 
 .register {
-    background-color: #b7b7b7;
+    background-color: #c7c7c7;
     margin-top: 1em;
 }
 
@@ -95,6 +109,13 @@ label {
     width: 100%;
     border: 2px solid #e7e7e7;
     border-radius: 5px;
+    outline: none;
+    transition-property: box-shadow;
+    transition-duration: 200ms;
+}
+
+.form-input:focus {
+    box-shadow: 0 0 4px #D72638;
 }
 
 form button {
@@ -123,4 +144,22 @@ form button:hover {
 
 .register-section a:hover {
     opacity: 0.8;
+}
+
+.msg {
+    text-align: center;
+    padding: 0.6em;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 0.6em;
+}
+
+.error {
+    border: 2px solid rgba(255, 215, 56, 0.5);
+    background-color: rgba(255, 215, 56, 0.4);
+}
+
+.success {
+    border: 2px solid rgba(0, 214, 0, 0.3);
+    background-color: rgba(0, 214, 0, 0.2);
 }

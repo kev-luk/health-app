@@ -1,15 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Exercise = require('../models/Exercise');
-const verify = require('./verifyToken')
+const { ensureAuthenticated } = require('../config/auth');
 
-router.get('/', verify, (req, res) => {
-    res.json({
-        posts: {
-            title: "hello everyone",
-            description: "post post post post"
-        }
-    })
+router.get('/', ensureAuthenticated, (req, res) => {
+    res.send('no access')
 });
 
 router.post('/new', async (req, res) => {
@@ -29,11 +24,11 @@ router.post('/new', async (req, res) => {
     }
 });
 
-router.patch('/edit', verify, (req, res) => {
+router.patch('/edit', (req, res) => {
 
 })
 
-router.delete('/', verify, (req, res) => {
+router.delete('/', (req, res) => {
 
 })
 

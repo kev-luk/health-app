@@ -1,5 +1,4 @@
 const express = require('express');
-const { verify } = require('jsonwebtoken');
 const Food = require('../models/Food');
 const router = express.Router();
 
@@ -24,11 +23,11 @@ router.post('/new', async (req, res) => {
     }
 });
 
-router.patch('/edit', verify, (req, res) => {
+router.patch('/edit', (req, res) => {
 
 })
 
-router.delete('/', verify, (req, res) => {
+router.delete('/', (req, res) => {
 
 })
 
