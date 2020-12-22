@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 const authRouter = require('./routes/auth')
 const foodRouter = require('./routes/food');
 const exerciseRouter = require('./routes/exercise');
+const dashboardRouter = require('./routes/dashboard')
 const PORT = process.env.PORT || 3000;
 const url = process.env.MONGO_URI;
 
@@ -27,10 +28,7 @@ app.use(express.json())
 app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({ extended: false }))
 
-app.get('/', (req, res) => {
-    res.render('welcome');
-});
-
+app.use('/', dashboardRouter)
 app.use('/auth', authRouter)
 app.use('/food', foodRouter);
 app.use('/exercise', exerciseRouter);
