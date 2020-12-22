@@ -5,6 +5,14 @@ const User = require('../models/User');
 const router = express.Router();
 
 // register page
+router.get('/register', (req, res) => {
+    res.render('register')
+})
+
+router.get('/login', (req, res) => {
+    res.render('login')
+})
+
 router.post('/register', async (req, res) => {
     let emailExist = await User.findOne({ email: req.body.email })
 
@@ -24,8 +32,8 @@ router.post('/register', async (req, res) => {
 
     try {
         user = await user.save()
-        res.send(user)
-        console.log("USER CREATED")
+        console.log('USER CREATED')
+        res.redirect('/auth/login')
     } catch (err) {
         res.send('not registered')
         console.log(err)

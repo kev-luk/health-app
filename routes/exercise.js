@@ -12,7 +12,7 @@ router.get('/', verify, (req, res) => {
     })
 });
 
-router.post('/entry', async (req, res) => {
+router.post('/new', async (req, res) => {
     let exercise = new Exercise({
         activity: req.body.activity,
         time: req.body.time,
@@ -28,5 +28,13 @@ router.post('/entry', async (req, res) => {
         console.log(err)
     }
 });
+
+router.patch('/edit', verify, (req, res) => {
+
+})
+
+router.delete('/', verify, (req, res) => {
+
+})
 
 module.exports = router;

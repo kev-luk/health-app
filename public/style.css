@@ -8,5 +8,119 @@
 
 body {
     font-family: 'Fira Sans', sans-serif;
-    color: red;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-section, 
+.register-section {
+    width: 50%;
+    border: 2px solid #e7e7e7;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+.welcome-header {
+    font-size: 3.5rem;
+}
+
+.welcome-message {
+    display: block;
+    font-size: 1.15rem;
+}
+
+.button {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 0.6em;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    transition-property: opacity;
+    transition-duration: 200ms;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.login {
+    background-color: #D72638;
+    margin-top: 1.4em;
+}
+
+.register {
+    background-color: #b7b7b7;
+    margin-top: 1em;
+}
+
+.register-section h1 {
+    margin-bottom: 0.5em;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 1em;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 0.2em;
+}
+
+.form-input {
+    padding: 0.6em;
+    width: 100%;
+    border: 2px solid #e7e7e7;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    padding: 0.6em;
+    border-radius: 5px;
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    background-color: #D72638;
+    margin-bottom: 0.6em;
+    transition-property: opacity;
+    transition-duration: 200ms;
+}
+
+form button:hover {
+    opacity: 0.8;
+}
+
+.register-section a {
+    color: #D72638;
+    text-decoration: none;
+    transition-property: opacity;
+    transition-duration: 200ms;
+}
+
+.register-section a:hover {
+    opacity: 0.8;
 }
