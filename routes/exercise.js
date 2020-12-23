@@ -7,7 +7,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
     res.send('no access')
 });
 
-router.post('/new', async (req, res) => {
+router.post('/new', ensureAuthenticated, async (req, res) => {
     let exercise = new Exercise({
         activity: req.body.activity,
         time: req.body.time,
@@ -24,11 +24,11 @@ router.post('/new', async (req, res) => {
     }
 });
 
-router.patch('/edit', (req, res) => {
+router.patch('/edit', ensureAuthenticated, (req, res) => {
 
 })
 
-router.delete('/', (req, res) => {
+router.delete('/', ensureAuthenticated, (req, res) => {
 
 })
 

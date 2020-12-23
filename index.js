@@ -8,13 +8,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/user')
 const dashboardRouter = require('./routes/dashboard')
+const exerciseRouter = require('./routes/exercise')
+const foodRouter = require('./routes/food')
+const mentalHealthRouter = require('./routes/mentalHealth')
 const expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const PORT = process.env.PORT || 3000;
 const url = process.env.MONGO_URI;
-const exerciseRouter = require('./routes/exercise')
 
 const app = express();
 
@@ -39,7 +41,13 @@ app.use(
     session({
         secret: process.env.PRIVATE_KEY,
         resave: true,
-        saveUninitialized: true
+        saveUninitialized: true,
+        cookie: {
+            path: '/',
+            httpOnly: true,
+            secure: false,
+            maxAge: 1000 * 60 * 60,
+        }
     })
 );
 
@@ -57,7 +65,9 @@ app.use((req, res, next) => {
 
 app.use('/', dashboardRouter)
 app.use('/user', userRouter)
-app.use('/exercise', exerciseRouter)
+app.use('/dashboard/food', foodRouter)
+app.use('/dashboard/exercise', exerciseRouter)
+app.use('/dashboard/mental-health', mentalHealthRouter)
 
 app.listen(PORT, () => {
     console.log('Server is running...');

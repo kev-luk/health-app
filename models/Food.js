@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment')
 
 const foodSchema = new mongoose.Schema({
     name: {
@@ -15,6 +16,11 @@ const foodSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    date: {
+        type: Date,
+        default: Date.now,
+        required: true,
+    }
 });
 
 module.exports = mongoose.model('Food', foodSchema);
