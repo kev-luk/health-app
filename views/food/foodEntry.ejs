@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Dashboard</title>
+    <title>Food Entry</title>
 </head>
 
 <body>
-    <%- include("./partials/nav") %>
+    <%- include("../partials/nav") %>
         <div class="container">
-            <h1>DASHBOARD</h1>
+            <form action="/dashboard/food/entry" method="POST">
+                <%- include("./partials/foodPost") %>
+            </form>
         </div>
 </body>
 

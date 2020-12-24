@@ -3,8 +3,23 @@ const router = express.Router();
 const Exercise = require('../models/Exercise');
 const { ensureAuthenticated } = require('../config/auth');
 
-router.get('/', ensureAuthenticated, (req, res) => {
-    res.send('no access')
+router.get('/', ensureAuthenticated, async (req, res) => {
+    const todayExercise = await Exercise.find({
+        date: {
+            $gte: moment().startOf('day').toDate(),
+            $lte: moment(moment().startOf('day')).endOf('day').toDate()
+        }
+    }).sort({ date: 'descending' })
+
+    let todayTime = 0
+    todayExercise.forEach((exercise) => {
+        todayTime += exercise.time
+    })
+
+    res.render('food/food', {
+        todayExercise: todayExercise,
+        todayTime: todayTime
+    });
 });
 
 router.post('/new', ensureAuthenticated, async (req, res) => {

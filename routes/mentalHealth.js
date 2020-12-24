@@ -4,7 +4,7 @@ const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 
 router.get('/', ensureAuthenticated, (req, res) => {
-    res.send('you are at the food page');
+    res.render('mental-health/diary');
 });
 
 router.post('/new', ensureAuthenticated, async (req, res) => {
