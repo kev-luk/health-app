@@ -24,7 +24,9 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/entry', (req, res) => {
-    res.render('food/foodEntry', { food: new Food() })
+    res.render('food/foodEntry', {
+        food: new Food()
+    })
 })
 
 router.post('/entry', async (req, res) => {
@@ -32,7 +34,8 @@ router.post('/entry', async (req, res) => {
         name: req.body.name,
         calories: req.body.calories,
         ingredients: req.body.ingredients,
-        description: req.body.description
+        description: req.body.description,
+        userID: req.user.id,
     })
 
     try {

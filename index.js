@@ -69,6 +69,10 @@ app.use('/dashboard/food', foodRouter)
 app.use('/dashboard/exercise', exerciseRouter)
 app.use('/dashboard/mental-health', mentalHealthRouter)
 
+app.use((req, res) => {
+    res.status(404).render('404')
+})
+
 app.listen(PORT, () => {
     console.log('Server is running...');
 });

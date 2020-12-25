@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment')
 const Exercise = require('../models/Exercise');
 const { ensureAuthenticated } = require('../config/auth');
 
-router.get('/', ensureAuthenticated, async (req, res) => {
+router.get('/', async (req, res) => {
     const todayExercise = await Exercise.find({
         date: {
             $gte: moment().startOf('day').toDate(),
@@ -16,24 +17,33 @@ router.get('/', ensureAuthenticated, async (req, res) => {
         todayTime += exercise.time
     })
 
-    res.render('food/food', {
+    res.render('exercise/exercise', {
         todayExercise: todayExercise,
         todayTime: todayTime
     });
 });
 
-router.post('/new', ensureAuthenticated, async (req, res) => {
+router.get('/entry', ensureAuthenticated, (req, res) => {
+    res.render('exercise/exerciseEntry', {
+        exercise: new Exercise()
+    })
+})
+
+router.post('/entry', ensureAuthenticated, async (req, res) => {
     let exercise = new Exercise({
         activity: req.body.activity,
         time: req.body.time,
         caloriesBurned: req.body.caloriesBurned,
-        description: req.body.description
+        description: req.body.description,
+        userID: req.user.id,
     })
 
     try {
         exercise = await exercise.save()
-        res.send(exercise)
+        req.flash('success_msg', 'Successfully saved exercise!')
+        res.redirect('/dashboard/exercise')
     } catch (err) {
+        req.flash('error_msg', 'Unable to save exercise');
         res.send('not registered')
         console.log(err)
     }

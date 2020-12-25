@@ -6,7 +6,7 @@ const exerciseSchema = new mongoose.Schema({
         required: true,
     },
     time: {
-        type: String,
+        type: Number,
         required: true,
     },
     caloriesBurned: {
@@ -15,6 +15,15 @@ const exerciseSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    date: {
+        type: Date,
+        default: Date.now,
+        required: true,
+    },
+    userID: {
+        type: String,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Exercise', exerciseSchema);

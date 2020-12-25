@@ -242,10 +242,13 @@ form button:hover {
     text-align: center;
 }
 
+textarea {
+    resize: none;
+}
+
 .entry-container #ingredients {
     grid-column: span 4;
     grid-row: span 1;
-    resize: none;
 }
 
 .entry-container #description {
@@ -256,4 +259,22 @@ form button:hover {
 
 .save-meal {
     grid-column: span 4;
+}
+
+.e404 {
+    flex-direction: column;
+    text-align: center;
+}
+
+.e404 h3 {
+    margin: 1.2em 0;
+}
+
+.e404-button {
+    margin-top: 0;
+}
+
+.logo-404 {
+    width: 30%;
+    height: 30%;
 }

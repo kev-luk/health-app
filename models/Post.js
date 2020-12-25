@@ -24,6 +24,10 @@ const postSchema = new mongoose.Schema({
         default: Date.now,
         required: true,
     },
+    userID: {
+        type: String,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Post', postSchema);
