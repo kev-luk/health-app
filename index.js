@@ -11,7 +11,7 @@ const dashboardRouter = require('./routes/dashboard')
 const exerciseRouter = require('./routes/exercise')
 const foodRouter = require('./routes/food')
 const mentalHealthRouter = require('./routes/mentalHealth')
-const expressLayouts = require('express-ejs-layouts');
+const methodOverride = require('method-override')
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -35,6 +35,7 @@ app.use(cors())
 
 app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({ extended: false }))
+app.use(methodOverride('_method'))
 app.use(express.json())
 
 app.use(

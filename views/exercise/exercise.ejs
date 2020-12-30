@@ -8,10 +8,29 @@
 </head>
 
 <body>
-    <%- include("../partials/nav") %>
-        <div class="container with-nav">
-            <h1>Exercise</h1>
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-btn">&times;</span>
+                <h2 class="modal-title">Change Date</h2>
+            </div>
+            <form action="/dashboard/exercise/entry" method="POST" class="datePopUp">
+                <div class="entry-container">
+                    <h1>Enter your Activity</h1>
+                    <input type="text" name="activity" class="entry-name">
+                    <input type="number" name="time" id="calories"><span>minutes</span>
+                    <input type="number" name="caloriesBurned" id="ingredients"><span>calories burned</span>
+                    <textarea name="description" id="description"></textarea>
+                    <button type="submit" class="save-meal">Save Activity</button>
+                </div>
+            </form>
         </div>
+    </div>
+
+    <div class="container-grid">
+        <%- include("../partials/nav") %>
+    </div>
+    <script src="/js/app.js"></script>
 </body>
 
 </html>

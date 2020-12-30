@@ -10,16 +10,12 @@ body {
     font-family: 'Fira Sans', sans-serif;
 }
 
-.container {
+.container-flex {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.with-nav {
-    height: 85vh;
 }
 
 .welcome-section, 
@@ -32,44 +28,6 @@ body {
     justify-content: center;
     align-items: center;
     padding: 2em;
-}
-
-.header {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-bottom: 0.4em;
-}
-
-.header h1{
-    font-size: 3.5rem;
-}
-
-.logo {
-    display: inline;
-    width: 50px;
-    height: 50px;
-    margin-left: 0.2em;
-}
-
-.welcome-instruct {
-    text-align: center;
-    font-size: 1.15rem;
-}
-
-.button {
-    text-decoration: none;
-    color: #ffffff;
-    padding: 0.6em;
-    border-radius: 5px;
-    width: 100%;
-    text-align: center;
-    transition-property: opacity;
-    transition-duration: 200ms;
-}
-
-.button:hover {
-    opacity: 0.8;
 }
 
 .login {
@@ -169,15 +127,188 @@ form button:hover {
     background-color: rgba(0, 214, 0, 0.2);
 }
 
-.nav-container {
+.container-grid {
     width: 100vw;
-    height: 15vh;
+    height: 100vh;
+    background-color: #eeeeee;
+    padding: 1.25em;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    row-gap: 1em;
+    column-gap: 1em;
+}
+
+/* .dashboard {
+    background-color: #ebebeb;
+    display: grid;
+    row-gap: 0.75em;
+    column-gap: 0.75em;
+    padding: 1.5em;
+} */
+
+.dashboard-box {
+    grid-column: span 2;
+    background-color: #ffffff;
+    padding: 0.75em;
+    border-radius: 5px;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    transition-property: opacity;
+    transition-duration: 200ms;
+}
+
+.dashboard-box:hover {
+    opacity: 0.7;
+}
+
+.dashboard-box h2 {
+    color: #D72638;
+}
+
+.log {
+    background-color: #ffffff;
+    grid-column: 1 / 3;
+    grid-row: span 2;
+    overflow: auto;
+}
+
+.data-graph {
+    grid-row: 3 / 7;
+    grid-column: 3/ 7;
+    background-color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+.data-graph-dough {
+    grid-column: 1 / 3;
+    grid-row: span 4;
+    background-color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+.modal {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation-name: modalopen;
+    animation-duration: 300ms;
+}
+
+.modal-content {
+    border-radius: 5px;
+    margin: 10% auto;
+    background-color: #e1e1e1;
+    width: 30%;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.modal-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 1em;
+    background-color: #D72638;
+    color: white;
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0.5em;
+    font-size: 2rem;
+    color: white;
+    transition-property: color;
+    transition-duration: 200ms;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.datePopUp {
+    padding: 1em;
+}
+
+.with-nav {
+    height: 85vh;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 0.4em;
+}
+
+.header h1{
+    font-size: 3.5rem;
+}
+
+.logo {
+    display: inline;
+    width: 50px;
+    height: 50px;
+    margin-left: 0.2em;
+}
+
+.welcome-instruct {
+    text-align: center;
+    font-size: 1.15rem;
+}
+
+.button {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 0.6em;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    transition-property: opacity;
+    transition-duration: 200ms;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.nav-container {
+    grid-column: span 6;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 1.2rem;
     padding: 0 2em;
     color: #000000;
+    background-color: #ffffff;
     border-bottom: 1px solid #dddddd;
 }
 
@@ -204,12 +335,27 @@ form button:hover {
     margin: 0em 2em
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.change-date {
+    background-color:rgba(0, 47, 255, 0.7);
+    border-color: rgba(0, 47, 255, 1);
+    margin-right: 0.4em;
+    padding: 0.4em;
+    font-size: 1.2rem;
+}
+
 #logout {
     font-weight: 500;
     padding: 0.4em;
     border-radius: 5px;
-    background-color: rgba(255, 17, 0, 0.2);
-    border: 2px solid rgba(255, 17, 0, 0.6);
+    color: #ffffff;
+    background-color: rgba(255, 12, 0, 0.8);
+    border: 2px solid rgba(255, 12, 0, 1);
     transition-property: opacity;
     transition-duration: 200ms;
 }
@@ -286,94 +432,4 @@ textarea {
 .logo-404 {
     width: 30%;
     height: 30%;
-}
-
-.dashboard {
-    background-color: #ebebeb;
-    display: grid;
-    grid-template-rows: repeat(12, 1fr);
-    grid-template-columns: repeat(12, 1fr);
-    row-gap: 0.75em;
-    column-gap: 0.75em;
-    padding: 1.5em;
-}
-
-.dashboard-box {
-    background-color: #ffffff;
-    grid-column: span 4;
-    padding: 0.75em;
-    border-radius: 5px;
-    text-align: center;
-    color: black;
-    text-decoration: none;
-    transition-property: opacity;
-    transition-duration: 200ms;
-}
-
-.dashboard-box:hover {
-    opacity: 0.7;
-}
-
-.dashboard-box h2 {
-    color: #D72638;
-}
-
-.modal {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-    animation-name: modalopen;
-    animation-duration: 300ms;
-}
-
-.modal-content {
-    border-radius: 5px;
-    margin: 10% auto;
-    background-color: #e1e1e1;
-    width: 30%;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-}
-
-.modal-header {
-    position: relative;
-    top: 0;
-    left: 0;
-    padding: 1em;
-    background-color: #D72638;
-    color: white;
-    text-align: center;
-}
-
-.close-btn {
-    position: absolute;
-    top: 0;
-    right: 0.5em;
-    font-size: 2rem;
-    color: white;
-    transition-property: color;
-    transition-duration: 200ms;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-content {
-    background-color: #ffffff;
-    border-radius: 5px;
-}
-
-.datePopUp {
-    padding: 1em;
 }

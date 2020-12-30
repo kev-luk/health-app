@@ -23,11 +23,11 @@ router.get('/', async (req, res) => {
     });
 });
 
-router.get('/entry', ensureAuthenticated, (req, res) => {
-    res.render('exercise/exerciseEntry', {
-        exercise: new Exercise()
-    })
-})
+// router.get('/entry', ensureAuthenticated, (req, res) => {
+//     res.render('exercise/exerciseEntry', {
+//         exercise: new Exercise()
+//     })
+// })
 
 router.post('/entry', ensureAuthenticated, async (req, res) => {
     let exercise = new Exercise({
@@ -49,12 +49,13 @@ router.post('/entry', ensureAuthenticated, async (req, res) => {
     }
 });
 
-router.patch('/edit', ensureAuthenticated, (req, res) => {
+router.put('/edit', ensureAuthenticated, (req, res) => {
 
 })
 
-router.delete('/', ensureAuthenticated, (req, res) => {
-
+router.delete('/:id', ensureAuthenticated, async (req, res) => {
+    await Exercise.findByIdAndDelete(req.params.id)
+    res.redirect('/dashboard/exercise')
 })
 
 module.exports = router;
