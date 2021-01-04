@@ -1,5 +1,5 @@
 const modal = document.querySelector('.modal')
-const button = document.querySelector('.change-date')
+const changeDateButton = document.querySelector('.change-date')
 const closeBtn = document.querySelector('.close-btn');
 
 function openModal() {
@@ -16,8 +16,8 @@ function outsideClick(e) {
     }
 }
 
-button.addEventListener('click', (e) => {
-    modal.style.display = 'block'
+changeDateButton.addEventListener('click', () => {
+    openModal()
 })
 
 closeBtn.addEventListener('click', () => {

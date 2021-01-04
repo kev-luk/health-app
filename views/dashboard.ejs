@@ -14,7 +14,7 @@
                 <span class="close-btn">&times;</span>
                 <h2 class="modal-title">Change Date</h2>
             </div>
-            <form action="/dashboard" method="POST" class="datePopUp">
+            <form action="/dashboard" method="POST" class="modal-form">
                 <%- include("./partials/dateModal") %>
             </form>
         </div>
@@ -23,22 +23,26 @@
     <div class="container-grid">
         <%- include("./partials/nav") %>
             <%- include("./partials/messages") %>
-                <!-- <h1>Hello Kevin</h1>
-                <h1>Today is 12/29/2020</h1>
-                <h1>change date</h1> -->
-                <a href="/dashboard/exercise" class="dashboard-box">
-                    <h2>Exercise</h2>
-                    <h3>
-                        <%= todayTime %>
-                    </h3>
-                    <h4>Total Minutes</h4>
-                </a>
+                <div class="dashboard-header">
+                    <h1>
+                        <%= date %>
+                    </h1>
+                    <h1>Hello Kevin!</h1>
+                    <button class="change-date">Change Date</button>
+                </div>
                 <a href="/dashboard/food" class="dashboard-box">
-                    <h2>Diet</h2>
+                    <h2>Food</h2>
                     <h3>
                         <%= todayCalories %>
                     </h3>
-                    <h4>Total Calories</h4>
+                    <h4>Calories Consumed</h4>
+                </a>
+                <a href="/dashboard/exercise" class="dashboard-box">
+                    <h2>Exercise</h2>
+                    <h3>
+                        <%= todayCaloriesBurned %>
+                    </h3>
+                    <h4>Calories Burned</h4>
                 </a>
                 <a href="/dashboard/mental-health" class="dashboard-box">
                     <h2>Diary</h2>
@@ -47,90 +51,14 @@
                     </h3>
                     <h4>Posts</h4>
                 </a>
-                <div class="log">
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                </div>
-                <div class="log">
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                    <div class="dash-post">
-                        <h2>
-                            Running
-                        </h2>
-                        <p>40 minutes</p>
-                    </div>
-                </div>
                 <div class="data-graph">
                     <canvas id="myChart1"></canvas>
                 </div>
-                <!-- <div class="data-graph-dough">
+                <div class="data-graph-dough">
                     <canvas id="myChart2"></canvas>
-                </div> -->
+                </div>
     </div>
-    <script src="/js/app.js"></script>
+    <script src="/js/dashboard.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
     <script>
         var ctx = document.getElementById('myChart1');

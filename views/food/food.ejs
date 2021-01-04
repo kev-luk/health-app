@@ -8,11 +8,94 @@
 </head>
 
 <body>
-    <%- include("../partials/nav") %>
-        <div class="container with-nav">
-            <h1>Food</h1>
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-btn">&times;</span>
+                <h2 class="modal-title">Change Date</h2>
+            </div>
+            <form action="/dashboard/exercise" method="POST" class="modal-form">
+                <%- include("../partials/dateModal") %>
+            </form>
         </div>
-        <script src="/js/chart.js"></script>
+    </div>
+    <div class="exercise-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="exercise-close">&times;</span>
+                <h2 class="modal-title">New Meal</h2>
+            </div>
+            <form action="/dashboard/food/entry" method="POST" class="modal-form">
+                <div class="form-group">
+                    <label for="food">Food</label>
+                    <input type="text" name="name" id="name" placeholder="Enter food" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="calories">Calories</label>
+                    <input type="text" name="calories" id="calories" placeholder="Enter the amount of calories consumed"
+                        class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="ingredients">Ingredients</label>
+                    <input type="text" name="ingredients" id="ingredients"
+                        placeholder="Enter the ingredients in the food" class="form-input">
+                </div>
+                <button type="submit">Add Meal</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container-grid">
+        <%- include("../partials/nav") %>
+            <div class="dashboard-box food-box">
+                <h2>Calories Consumed</h2>
+                <h3>
+                    <%= todayCalories %>
+                </h3>
+                <h4>Calories</h4>
+            </div>
+            <div class="log exercise-log">
+                <% if(todayFood.length==0) { %>
+                    <h1>
+                        <%= date %>
+                    </h1>
+                    <h3>No Activity</h3>
+                    <% } else { %>
+                        <h1>
+                            <%= date %>
+                        </h1>
+                        <div class="exercise-list">
+                            <% todayFood.forEach(food=> { %>
+                                <a href="/dashboard/food/<%= food.id %>" class="exercise-post">
+                                    <div>
+                                        <h3>
+                                            <%= food.name %>
+                                        </h3>
+                                        <p>
+                                            <%= food.calories %> calories
+                                        </p>
+                                        <h5>
+                                            <%= food.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'})
+                                                %>
+                                        </h5>
+                                    </div>
+                                </a>
+                                <% }) %>
+                        </div>
+                        <% } %>
+                            <button class="change-date">Change Date</button>
+            </div>
+            <div class="data-graph-line">
+                <canvas id="myChart1"></canvas>
+            </div>
+            <div class="data-graph-line">
+                <canvas id="myChart1"></canvas>
+            </div>
+            <button class="button new-exercise">
+                Add Food
+            </button>
+    </div>
+    <script src="/js/exercise.js"></script>
 </body>
 
 </html>

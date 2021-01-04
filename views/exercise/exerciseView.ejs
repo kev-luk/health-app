@@ -1,0 +1,38 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Exercise</title>
+</head>
+
+<body>
+    <div class="container-grid">
+        <%- include("../partials/nav") %>
+            <div class="card">
+                <h1 class="exercise-card-title">
+                    <%= exercise.activity %>
+                </h1>
+                <h3 class="exercise-card-date">
+                    <%= exercise.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
+                        <%=exercise.date.toLocaleDateString() %>
+                </h3>
+                <h3 class="exercise-card-stat">
+                    <%= exercise.time %> minutes
+                </h3>
+                <h3 class="exercise-card-stat">
+                    <%= exercise.caloriesBurned %> calories burned
+                </h3>
+                <p class="exercise-card-description">
+                    <%= exercise.description %>
+                </p>
+                <a href="/dashboard/exercise/edit/<%= exercise.id %> " class="button edit">Edit</a>
+                <form action="/dashboard/exercise/<%= exercise.id %>?_method=DELETE" method="POST" class="delete">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+    </div>
+</body>
+
+</html>

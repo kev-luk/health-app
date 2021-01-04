@@ -18,15 +18,38 @@ router.get('/', async (req, res) => {
     })
 
     res.render('food/food', {
+        date: moment().format('L'),
         todayFood: todayFood,
         todayCalories: todayCalories
     });
 });
 
-router.get('/entry', (req, res) => {
-    res.render('food/foodEntry', {
-        food: new Food()
-    })
+router.post('/', async (req, res) => {
+    let date;
+    try {
+        date = moment(new Date(Number(req.body.year), Number(req.body.month) - 1, Number(req.body.day)))
+
+        const todayFood = await Food.find({
+            date: {
+                $gte: moment(date).startOf('day').toDate(),
+                $lte: moment(moment(date).startOf('day')).endOf('day').toDate()
+            }
+        }).sort({ date: 'descending' })
+
+        let todayCalories = 0
+        todayFood.forEach((food) => {
+            todayCalories += food.calories
+        })
+
+        res.render('food/food', {
+            date: date.format('MM/DD/YYYY'),
+            todayFood: todayFood,
+            todayCalories: todayCalories
+        });
+    } catch (err) {
+        req.flash('error_msg', 'Please enter numeric values')
+        res.redirect('/dashboard/food')
+    }
 })
 
 router.post('/entry', async (req, res) => {
@@ -34,7 +57,6 @@ router.post('/entry', async (req, res) => {
         name: req.body.name,
         calories: req.body.calories,
         ingredients: req.body.ingredients,
-        description: req.body.description,
         userID: req.user.id,
     })
 
@@ -47,12 +69,41 @@ router.post('/entry', async (req, res) => {
     }
 });
 
-router.put('/', ensureAuthenticated, (req, res) => {
-
+router.get('/:id', async (req, res) => {
+    const food = await Food.findById(req.params.id)
+    res.render('food/foodView', {
+        food: food
+    })
 })
 
-router.delete('/', ensureAuthenticated, (req, res) => {
+router.get('/edit/:id', async (req, res) => {
+    const food = await Food.findById(req.params.id)
+    res.render('food/foodEdit', {
+        food: food
+    })
+})
 
+router.put('/:id', async (req, res) => {
+    let food = await Food.findById(req.params.id)
+    const { name, calories, ingredients } = req.body
+    food.name = name
+    food.calories = calories
+    food.ingredients = ingredients
+
+    try {
+        food = await food.save()
+        res.redirect(`/dashboard/food/${food.id}`)
+    } catch (err) {
+        req.flash('error_msg', 'Unable to save changes')
+        res.redirect(`/dashboard/food/edit/${food.id}`, {
+            food: food
+        })
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    await Food.findByIdAndDelete(req.params.id)
+    res.redirect('/dashboard/food')
 })
 
 module.exports = router;

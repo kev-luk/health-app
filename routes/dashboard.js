@@ -40,9 +40,9 @@ router.get('/dashboard', async (req, res) => {
         todayCalories += food.calories
     })
 
-    let todayTime = 0
+    let todayCaloriesBurned = 0
     todayExercise.forEach((exercise) => {
-        todayTime += exercise.time
+        todayCaloriesBurned += exercise.caloriesBurned
     })
 
     res.render('dashboard', {
@@ -50,10 +50,10 @@ router.get('/dashboard', async (req, res) => {
         exercise: todayExercise,
         posts: todayPosts,
         todayCalories: todayCalories,
-        todayTime: todayTime,
+        todayCaloriesBurned: todayCaloriesBurned,
         totalPosts: todayPosts.length,
         // name: req.user.name,
-        // date: moment().format('L'),
+        date: moment().format('L'),
     })
 });
 
@@ -91,9 +91,9 @@ router.post('/dashboard', async (req, res) => {
             todayCalories += food.calories
         })
 
-        let todayTime = 0
+        let todayCaloriesBurned = 0
         todayExercise.forEach((exercise) => {
-            todayTime += exercise.time
+            todayCaloriesBurned += exercise.caloriesBurned
         })
 
         res.render('dashboard', {
@@ -101,10 +101,10 @@ router.post('/dashboard', async (req, res) => {
             exercise: todayExercise,
             posts: todayPosts,
             todayCalories: todayCalories,
-            todayTime: todayTime,
+            todayCaloriesBurned: todayCaloriesBurned,
             totalPosts: todayPosts.length,
             // name: req.user.name,
-            // date: moment().format('L'),
+            date: date.format('MM/DD/YYYY'),
         })
     } catch (err) {
         req.flash('error_msg', 'Please enter numeric values')

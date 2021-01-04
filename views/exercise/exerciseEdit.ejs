@@ -1,0 +1,28 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-grid">
+        <%- include("../partials/nav") %>
+            <form action="/dashboard/exercise/<%= exercise.id %>?_method=PUT" method="POST" class="edit-form">
+                <div class="card">
+                    <input type="text" name="activity" id="activity">
+                    <input type="text" name="time" id="time" placeholder="Enter the duration of your activity">
+                    <span>minutes</span>
+                    <input type="text" name="caloriesBurned" id="caloriesBurned"
+                        placeholder="Enter the duration of your activity">
+                    <span>calories burned</span>
+                    <textarea name="description" id="description" placeholder="Describe your activity"></textarea>
+                    <button type="submit" class="save">Save</button>
+                </div>
+            </form>
+    </div>
+</body>
+
+</html>
