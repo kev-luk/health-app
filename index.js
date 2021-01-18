@@ -10,7 +10,7 @@ const userRouter = require('./routes/user')
 const dashboardRouter = require('./routes/dashboard')
 const exerciseRouter = require('./routes/exercise')
 const foodRouter = require('./routes/food')
-const mentalHealthRouter = require('./routes/mentalHealth')
+const journalRouter = require('./routes/journal')
 const methodOverride = require('method-override')
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -68,10 +68,10 @@ app.use('/', dashboardRouter)
 app.use('/user', userRouter)
 app.use('/dashboard/food', foodRouter)
 app.use('/dashboard/exercise', exerciseRouter)
-app.use('/dashboard/mental-health', mentalHealthRouter)
+app.use('/dashboard/journal', journalRouter)
 
 app.use((req, res) => {
-    res.status(404).render('404')
+    res.status(404).render('e404')
 })
 
 app.listen(PORT, () => {

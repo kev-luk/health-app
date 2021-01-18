@@ -52,20 +52,28 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.post('/entry', async (req, res) => {
-    let food = new Food({
-        name: req.body.name,
-        calories: req.body.calories,
-        ingredients: req.body.ingredients,
-        userID: req.user.id,
-    })
+router.post('/entry', ensureAuthenticated, async (req, res) => {
+    if (!req.body.name) {
+        req.flash('error_msg', 'Please enter a meal name')
+        res.redirect('/dashboard/exercise')
+    } else if (!req.body.calories) {
+        req.flash('error_msg', 'Please enter the amount of calories consumed')
+        res.redirect('/dashboard/exercise')
+    } else {
+        let food = new Food({
+            name: req.body.name,
+            calories: req.body.calories,
+            ingredients: req.body.ingredients,
+            userID: req.user.id,
+        })
 
-    try {
-        food = await food.save()
-        res.redirect('/dashboard/food')
-    } catch (err) {
-        console.log(err)
-        res.render('food/foodEntry', { food: food })
+        try {
+            food = await food.save()
+            res.redirect('/dashboard/food')
+        } catch (err) {
+            console.log(err)
+            res.render('/dashboard/food', { food: food })
+        }
     }
 });
 

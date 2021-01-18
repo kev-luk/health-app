@@ -1,0 +1,76 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Journal</title>
+</head>
+
+<body>
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-btn">&times;</span>
+                <h2 class="modal-title">Change Date</h2>
+            </div>
+            <form action="/dashboard/journal" method="POST" class="modal-form">
+                <%- include("../partials/dateModal") %>
+            </form>
+        </div>
+    </div>
+    <div class="container-grid">
+        <%- include("../partials/nav") %>
+            <form action="/dashboard/journal/entry" method="POST" class="journal-form">
+                <h1>New Entry</h1>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" placeholder="Entry Title" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <input type="text" name="rating" id="rating" placeholder="Rate your day" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="entry">Entry</label>
+                    <textarea name="entry" id="journal-entry" placeholder="Describe your day"></textarea>
+                </div>
+                <button type="submit" class="button">Add Entry</button>
+            </form>
+            <div class="diary-log">
+                <% if(posts.length==0) { %>
+                    <h1>
+                        Post History
+                    </h1>
+                    <h3>No Entries</h3>
+                    <% } else { %>
+                        <h1>
+                            Post History
+                        </h1>
+                        <div class="journal-list">
+                            <% posts.forEach(post=> { %>
+                                <a href="/dashboard/journal/<%= post.id %>" class="exercise-post">
+                                    <div>
+                                        <h3>
+                                            <%= post.title %>
+                                        </h3>
+                                        <p>
+                                            <%= post.rating %> / 10
+                                        </p>
+                                        <h5>
+                                            <%= post.date.toLocaleDateString() %> &bull; <%=
+                                                    post.date.toLocaleTimeString([], {hour: '2-digit' ,
+                                                    minute:'2-digit'}) %>
+                                        </h5>
+                                    </div>
+                                </a>
+                                <% }) %>
+                        </div>
+                        <% } %>
+                            <button class="change-date button journal-date">Filter Date</button>
+            </div>
+    </div>
+    <script src="/js/exercise.js"></script>
+</body>
+
+</html>

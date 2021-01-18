@@ -1,0 +1,35 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Food</title>
+</head>
+
+<body>
+    <div class="container-grid">
+        <%- include("../partials/nav") %>
+            <div class="card">
+                <h1 class="exercise-card-title">
+                    <%= food.name %>
+                </h1>
+                <h3 class="exercise-card-date">
+                    <%= food.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
+                        <%= food.date.toLocaleDateString() %>
+                </h3>
+                <h3 class="exercise-card-stat">
+                    <%= food.calories %> calories
+                </h3>
+                <p class="exercise-card-description">
+                    <%= food.ingredients %>
+                </p>
+                <a href="/dashboard/food/edit/<%= food.id %> " class="button edit">Edit</a>
+                <form action="/dashboard/food/<%= food.id %>?_method=DELETE" method="POST" class="delete">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+    </div>
+</body>
+
+</html>
