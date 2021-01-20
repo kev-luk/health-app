@@ -10,21 +10,21 @@
 <body>
     <div class="container-grid">
         <%- include("../partials/nav") %>
-            <div class="card">
-                <h1 class="exercise-card-title">
+            <div class="card exercise-card">
+                <h1 class="exercise-title">
                     <%= exercise.activity %>
                 </h1>
-                <h3 class="exercise-card-date">
+                <h3 class="exercise-date">
                     <%= exercise.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
                         <%=exercise.date.toLocaleDateString() %>
                 </h3>
-                <h3 class="exercise-card-stat">
+                <h3 class="exercise-stat">
                     <%= exercise.time %> minutes
                 </h3>
-                <h3 class="exercise-card-stat">
+                <h3 class="exercise-stat">
                     <%= exercise.caloriesBurned %> calories burned
                 </h3>
-                <p class="exercise-card-description">
+                <p class="exercise-description">
                     <%= exercise.description %>
                 </p>
                 <a href="/dashboard/exercise/edit/<%= exercise.id %> " class="button edit">Edit</a>

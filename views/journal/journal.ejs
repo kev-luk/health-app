@@ -25,15 +25,16 @@
                 <h1>New Entry</h1>
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" id="title" placeholder="Entry Title" class="form-input">
+                    <input required type="text" name="title" id="title" placeholder="Entry Title" class="form-input">
                 </div>
                 <div class="form-group">
                     <label for="rating">Rating</label>
-                    <input type="text" name="rating" id="rating" placeholder="Rate your day" class="form-input">
+                    <input required type="number" min="0" max="10" name="rating" id="rating" placeholder="Rate your day"
+                        class="form-input">
                 </div>
                 <div class="form-group">
                     <label for="entry">Entry</label>
-                    <textarea name="entry" id="journal-entry" placeholder="Describe your day"></textarea>
+                    <textarea required name="entry" id="journal-entry" placeholder="Describe your day"></textarea>
                 </div>
                 <button type="submit" class="button">Add Entry</button>
             </form>
@@ -70,7 +71,7 @@
                             <button class="change-date button journal-date">Filter Date</button>
             </div>
     </div>
-    <script src="/js/exercise.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 
 </html>

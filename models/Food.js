@@ -9,6 +9,15 @@ const foodSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    carbs: {
+        type: Number,
+    },
+    protein: {
+        type: Number,
+    },
+    fat: {
+        type: Number,
+    },
     ingredients: {
         type: String,
     },

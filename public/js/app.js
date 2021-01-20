@@ -6,7 +6,7 @@ const newExercise = document.querySelector('.new-exercise')
 const closeExerciseModal = document.querySelector('.exercise-close')
 
 function openModal(element = modal) {
-    element.style.display = 'block';
+    element.style.display = 'flex';
 }
 
 function closeDateModal() {
@@ -28,17 +28,22 @@ changeDateButton.addEventListener('click', () => {
     openModal()
 })
 
-newExercise.addEventListener('click', () => {
-    openModal(exerciseModal)
-})
+if (document.body.contains(newExercise)) {
+    newExercise.addEventListener('click', () => {
+        openModal(exerciseModal)
+    })
+}
 
 closeModalBtn.addEventListener('click', () => {
     closeDateModal();
 });
 
-closeExerciseModal.addEventListener('click', () => {
-    closeExercise()
-})
+
+if (document.body.contains(newExercise)) {
+    closeExerciseModal.addEventListener('click', () => {
+        closeExercise()
+    })
+}
 
 window.addEventListener('click', (e) => {
     outsideClick(e);

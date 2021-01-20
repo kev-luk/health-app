@@ -10,18 +10,39 @@
 <body>
     <div class="container-grid">
         <%- include("../partials/nav") %>
-            <div class="card">
-                <h1 class="exercise-card-title">
+            <div class="card food-card">
+                <h1 class="food-title">
                     <%= food.name %>
                 </h1>
-                <h3 class="exercise-card-date">
+                <h2 class="food-date">
                     <%= food.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
                         <%= food.date.toLocaleDateString() %>
-                </h3>
-                <h3 class="exercise-card-stat">
+                </h2>
+                <h2 class="food-calories">
                     <%= food.calories %> calories
+                </h2>
+                <h3 class="food-carbs">
+                    <% if(typeof food.carbs=='undefined' ) { %>
+                        N/A grams of carbohydrates
+                        <% } else {%>
+                            <%= food.carbs %> grams of carbohydrates
+                                <% } %>
                 </h3>
-                <p class="exercise-card-description">
+                <h3 class="food-protein">
+                    <% if(typeof food.protein=='undefined' ) { %>
+                        N/A grams of protein
+                        <% } else {%>
+                            <%= food.protein %> grams of protein
+                                <% } %>
+                </h3>
+                <h3 class="food-fat">
+                    <% if(typeof food.fat=='undefined' ) { %>
+                        N/A grams of fat
+                        <% } else {%>
+                            <%= food.fat %> grams of fat
+                                <% } %>
+                </h3>
+                <p class="food-ingredients">
                     <%= food.ingredients %>
                 </p>
                 <a href="/dashboard/food/edit/<%= food.id %> " class="button edit">Edit</a>

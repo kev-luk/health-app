@@ -27,13 +27,7 @@ router.get('/dashboard', async (req, res) => {
         },
     }).sort({ date: 'descending' })
 
-    const todayPosts = await Post.find({
-        // userID: req.user.id,
-        date: {
-            $gte: moment().startOf('day').toDate(),
-            $lte: moment(moment().startOf('day')).endOf('day').toDate()
-        },
-    }).sort({ date: 'descending' })
+    const posts = await Post.find()
 
     let todayCalories = 0
     todayFood.forEach((food) => {
@@ -46,13 +40,10 @@ router.get('/dashboard', async (req, res) => {
     })
 
     res.render('dashboard', {
-        foods: todayFood,
-        exercise: todayExercise,
-        posts: todayPosts,
+        // name: req.user.name,
         todayCalories: todayCalories,
         todayCaloriesBurned: todayCaloriesBurned,
-        totalPosts: todayPosts.length,
-        // name: req.user.name,
+        totalPosts: posts.length,
         date: moment().format('L'),
     })
 });
@@ -78,13 +69,7 @@ router.post('/dashboard', async (req, res) => {
             },
         }).sort({ date: 'descending' })
 
-        const todayPosts = await Post.find({
-            // userID: req.user.id,
-            date: {
-                $gte: moment(date).startOf('day').toDate(),
-                $lte: moment(moment(date).startOf('day')).endOf('day').toDate()
-            },
-        }).sort({ date: 'descending' })
+        const posts = await Post.find()
 
         let todayCalories = 0
         todayFood.forEach((food) => {
@@ -97,13 +82,10 @@ router.post('/dashboard', async (req, res) => {
         })
 
         res.render('dashboard', {
-            foods: todayFood,
-            exercise: todayExercise,
-            posts: todayPosts,
+            // name: req.user.name,
             todayCalories: todayCalories,
             todayCaloriesBurned: todayCaloriesBurned,
-            totalPosts: todayPosts.length,
-            // name: req.user.name,
+            totalPosts: posts.length,
             date: date.format('MM/DD/YYYY'),
         })
     } catch (err) {

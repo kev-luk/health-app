@@ -10,16 +10,29 @@
 <body>
     <div class="container-grid">
         <%- include("../partials/nav") %>
-            <form action="/dashboard/food/<%= food.id %>?_method=PUT" method="POST" class="edit-form">
-                <div class="card">
-                    <input type="text" name="activity" id="activity">
-                    <h3>Meal</h3>
-                    <input type="text" name="caloriesBurned" id="caloriesBurned"
-                        placeholder="Enter the duration of your activity">
-                    <h3>calories</h3>
-                    <textarea name="description" id="description" placeholder="Ingredients"></textarea>
-                    <button type="submit" class="save">Save</button>
-                </div>
+            <form action="/dashboard/food/<%= food.id %>?_method=PUT" method="POST" class="card food-card food-edit">
+                <input required type="text" name="name" id="activity" class="food-title-edit" placeholder="Name of food"
+                    value="<%= food.name %>">
+                <input type="text" name="date" id="date" class="food-date-edit"
+                    value="<%= food.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull; <%= food.date.toLocaleDateString() %>"
+                    disabled>
+                <input required type="number" name="calories" id="calories" class="food-calories-edit"
+                    placeholder="Calories consumed" value="<%= food.calories %>">
+
+                <% if(typeof food.carbs=='undefined' ) { %>
+                    <input type="number" name="carbs" id="carbs" class="food-carbs-edit"
+                        placeholder="Grams of carbohydrates" value="N/A" disabled>
+                    <% } else { %>
+                        <input type="number" name="carbs" id="carbs" class="food-carbs-edit"
+                            placeholder="Grams of carbohydrates" value="<%= food.carbs %>">
+                        <% } %>
+                            <input type="number" name="protein" id="protein" class="food-protein-edit"
+                                placeholder="Grams of protein" value="<%= food.protein %>">
+                            <input type="number" name="fat" id="fat" class="food-fat-edit" placeholder="Grams of fat"
+                                value="<%= food.fat %>">
+                            <textarea type="text" name="ingredients" id="ingredients" class="food-ingredient"
+                                placeholder="Ingredients"><%= food.ingredients %></textarea>
+                            <button type="submit" class="button save">Save</button>
             </form>
     </div>
 </body>

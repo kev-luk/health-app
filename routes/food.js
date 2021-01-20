@@ -63,6 +63,9 @@ router.post('/entry', ensureAuthenticated, async (req, res) => {
         let food = new Food({
             name: req.body.name,
             calories: req.body.calories,
+            carbs: req.body.carbs,
+            protein: req.body.protein,
+            fat: req.body.fat,
             ingredients: req.body.ingredients,
             userID: req.user.id,
         })
@@ -72,7 +75,7 @@ router.post('/entry', ensureAuthenticated, async (req, res) => {
             res.redirect('/dashboard/food')
         } catch (err) {
             console.log(err)
-            res.render('/dashboard/food', { food: food })
+            res.render('dashboard/food', { food: food })
         }
     }
 });

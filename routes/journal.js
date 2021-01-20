@@ -8,7 +8,6 @@ router.get('/', async (req, res) => {
     const posts = await Post.find().sort({ date: 'descending' })
 
     res.render('journal/journal', {
-        date: moment().format('L'),
         posts: posts
     });
 });
@@ -54,21 +53,34 @@ router.post('/entry', ensureAuthenticated, async (req, res) => {
     }
 });
 
-router.get('/:id', (req, res) => {
-    const postID = req.params.id
-    const post = Post.findById(postID)
-
+router.get('/:id', async (req, res) => {
+    const post = await Post.findById(req.params.id)
     res.render('journal/journalView', {
         post: post
     })
 })
 
-router.patch('/edit', ensureAuthenticated, (req, res) => {
+router.put('/:id', async (req, res) => {
+    let post = await Post.findById(req.params.id)
+    const { title, rating, entry } = req.body
+    post.title = title
+    post.rating = rating
+    post.entry = entry
 
+    try {
+        post = await post.save()
+        res.redirect(`/dashboard/journal/${post.id}`)
+    } catch (err) {
+        req.flash('error_msg', 'Unable to save changes')
+        res.redirect(`/dashboard/journal/edit/${post.id}`, {
+            post: post
+        })
+    }
 })
 
-router.delete('/', ensureAuthenticated, (req, res) => {
-
+router.delete('/:id', async (req, res) => {
+    await Post.findByIdAndDelete(req.params.id)
+    res.redirect('/dashboard/journal')
 })
 
 module.exports = router;
