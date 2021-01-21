@@ -39,12 +39,17 @@ router.get('/dashboard', async (req, res) => {
         todayCaloriesBurned += exercise.caloriesBurned
     })
 
+    let weekCalories = await exercisePerDay(moment().format())
+
     res.render('dashboard', {
         // name: req.user.name,
         todayCalories: todayCalories,
         todayCaloriesBurned: todayCaloriesBurned,
         totalPosts: posts.length,
         date: moment().format('L'),
+        // posts: getCaloriesPerDay(todayExercise),
+        days: getDays(moment().format()),
+        weekCalories: weekCalories
     })
 });
 
@@ -94,8 +99,68 @@ router.post('/dashboard', async (req, res) => {
     }
 })
 
-function getUserDate() {
+function getDays(date) {
+    let dates = []
+    const NUM_OF_DAYS = 7
 
+    for (let i = 0; i < NUM_OF_DAYS; i++) {
+        let o = moment(date).subtract(i, 'day').format('MM-DD')
+        dates.push(o);
+    }
+
+    return dates.reverse();
+}
+
+async function caloriesPerDay(date) {
+    let calories = []
+    const NUM_OF_DAYS = 7
+
+    for (let i = 0; i < NUM_OF_DAYS; i++) {
+        let o = moment(date).subtract(i, 'day')
+
+        const dayFood = await Food.find({
+            // userID: req.user.id,
+            date: {
+                $gte: moment(o).startOf('day').toDate(),
+                $lte: moment(moment(o).startOf('day')).endOf('day').toDate()
+            },
+        })
+
+        let todayCalories = 0
+        dayFood.forEach((food) => {
+            todayCalories += food.calories
+        })
+
+        calories.push(todayCalories)
+    }
+
+    return calories.reverse()
+}
+
+async function exercisePerDay(date) {
+    let burned = []
+    const NUM_OF_DAYS = 7
+
+    for (let i = 0; i < NUM_OF_DAYS; i++) {
+        let o = moment(date).subtract(i, 'day')
+
+        const dayExercise = await Exercise.find({
+            // userID: req.user.id,
+            date: {
+                $gte: moment(o).startOf('day').toDate(),
+                $lte: moment(moment(o).startOf('day')).endOf('day').toDate()
+            },
+        })
+
+        let burnedDay = 0
+        dayExercise.forEach((exercise) => {
+            burnedDay += exercise.caloriesBurned
+        })
+
+        burned.push(burnedDay)
+    }
+    // console.log(burned.reverse())
+    return burned.reverse()
 }
 
 module.exports = router;

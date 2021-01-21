@@ -11,26 +11,32 @@
     <div class="container-grid">
         <%- include("../partials/nav") %>
             <div class="card exercise-card">
-                <h1 class="exercise-title">
-                    <%= exercise.activity %>
-                </h1>
-                <h3 class="exercise-date">
-                    <%= exercise.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
-                        <%=exercise.date.toLocaleDateString() %>
-                </h3>
-                <h3 class="exercise-stat">
-                    <%= exercise.time %> minutes
-                </h3>
-                <h3 class="exercise-stat">
-                    <%= exercise.caloriesBurned %> calories burned
-                </h3>
-                <p class="exercise-description">
-                    <%= exercise.description %>
-                </p>
-                <a href="/dashboard/exercise/edit/<%= exercise.id %> " class="button edit">Edit</a>
-                <form action="/dashboard/exercise/<%= exercise.id %>?_method=DELETE" method="POST" class="delete">
-                    <button type="submit">Delete</button>
-                </form>
+                <%- include("../partials/messages") %>
+                    <h1 class="exercise-activity">
+                        <%= exercise.activity %>
+                    </h1>
+                    <h3 class="exercise-date">
+                        <%= exercise.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
+                            <%=exercise.date.toLocaleDateString() %>
+                    </h3>
+                    <h3 class="exercise-stat">
+                        <%= exercise.time %> minutes
+                    </h3>
+
+                    <h3 class="exercise-stat">
+                        <% if(exercise.caloriesBurned==null) { %>
+                            0 calories burned
+                            <% } else { %>
+                                <%= exercise.caloriesBurned %> calories burned
+                                    <% } %>
+                    </h3>
+                    <p class="exercise-description">
+                        <%= exercise.description %>
+                    </p>
+                    <a href="/dashboard/exercise/edit/<%= exercise.id %> " class="button edit">Edit</a>
+                    <form action="/dashboard/exercise/<%= exercise.id %>?_method=DELETE" method="POST" class="delete">
+                        <button type="submit">Delete</button>
+                    </form>
             </div>
     </div>
 </body>

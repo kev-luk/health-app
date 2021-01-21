@@ -96,13 +96,17 @@ router.get('/edit/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     let food = await Food.findById(req.params.id)
-    const { name, calories, ingredients } = req.body
+    const { name, calories, carbs, protein, fat, ingredients } = req.body
     food.name = name
     food.calories = calories
+    food.carbs = carbs
+    food.protein = protein
+    food.fat = fat
     food.ingredients = ingredients
 
     try {
         food = await food.save()
+        req.flash('success_msg', 'Successfully updated')
         res.redirect(`/dashboard/food/${food.id}`)
     } catch (err) {
         req.flash('error_msg', 'Unable to save changes')

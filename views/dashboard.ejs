@@ -24,9 +24,9 @@
         <%- include("./partials/nav") %>
             <%- include("./partials/messages") %>
                 <div class="dashboard-header">
-                    <h1>
+                    <h2>
                         <%= date %>
-                    </h1>
+                    </h2>
                     <h1>Hello Kevin!</h1>
                     <button class="change-date">Change Date</button>
                 </div>
@@ -61,39 +61,56 @@
     <script src="/js/app.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
     <script>
+        let rawCaloriesBurned = ('<%= weekCalories %>')
+        let formatCaloriesBurned = rawCaloriesBurned.split(",")
+        let rawDay = '<%= days %>'
+        let formatDay = rawDay.split(",")
+        // let rawData = '<%# posts %>'
+        // let formatData = rawData.split(",")
+
         var ctx = document.getElementById('myChart1');
         var ctx2 = document.getElementById('myChart2');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: formatDay,
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: 'Calories',
+                    data: formatCaloriesBurned,
                     backgroundColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
                         'rgba(75, 192, 192, 1)',
                         'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 0, 200, 1)'
                     ],
-                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Date'
+                        }
+                    }],
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Calories'
                         }
                     }]
                 },
                 title: {
                     display: true,
-                    text: 'Exercise Breakdown for the Week',
+                    text: 'Calories Burned per Day in Past 7 Days',
                     fontColor: '#D72638',
                     fontFamily: "'Fira Sans', sans-serif",
                     fontSize: 24
@@ -124,7 +141,7 @@
                 maintainAspectRatio: false,
                 title: {
                     display: true,
-                    text: 'Calorie Breakdown',
+                    text: "Today's Calorie Breakdown",
                     fontColor: '#D72638',
                     fontFamily: "'Fira Sans', sans-serif",
                     fontSize: 24

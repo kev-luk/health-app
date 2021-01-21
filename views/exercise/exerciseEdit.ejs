@@ -10,17 +10,23 @@
 <body>
     <div class="container-grid">
         <%- include("../partials/nav") %>
-            <form action="/dashboard/exercise/<%= exercise.id %>?_method=PUT" method="POST" class="edit-form">
-                <div class="card">
-                    <input type="text" name="activity" id="activity">
-                    <input type="text" name="time" id="time" placeholder="Enter the duration of your activity">
-                    <span>minutes</span>
-                    <input type="text" name="caloriesBurned" id="caloriesBurned"
-                        placeholder="Enter the duration of your activity">
-                    <span>calories burned</span>
-                    <textarea name="description" id="description" placeholder="Describe your activity"></textarea>
-                    <button type="submit" class="save">Save</button>
-                </div>
+            <form action="/dashboard/exercise/<%= exercise.id %>?_method=PUT" method="POST"
+                class="card exercise-card exercise-edit">
+                <input required type="text" name="activity" id="activity" class="exercise-activity"
+                    placeholder="Name of activity" value="<%= exercise.activity %>">
+
+                <input disabled type="text" name="date" id="date" class="exercise-date" placeholder="Date"
+                    value="<%= exercise.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull; <%=exercise.date.toLocaleDateString() %>">
+
+                <input required type="number" name="time" id="time" class="exercise-stat"
+                    placeholder="Duration (minutes)" value="<%= exercise.time %>">
+
+                <input type="number" name="caloriesBurned" id="caloriesBurned" class="exercise-stat"
+                    placeholder="Calories burned" value="<%= exercise.caloriesBurned %>">
+
+                <textarea name="description" id="description" class="exercise-description"
+                    placeholder="Describe your activity"><%= exercise.description %></textarea>
+                <button type="submit" class="save">Save</button>
             </form>
     </div>
 </body>

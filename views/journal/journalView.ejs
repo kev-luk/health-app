@@ -11,23 +11,24 @@
     <div class="container-grid">
         <%- include("../partials/nav") %>
             <div class="card journal-card">
-                <h1 class="journal-title">
-                    <%= post.title %>
-                </h1>
-                <h2 class="journal-date">
-                    <%= post.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
-                        <%= post.date.toLocaleDateString() %>
-                </h2>
-                <h2 class="journal-rating">
-                    <%= post.rating %> / 10
-                </h2>
-                <p class="journal-entry">
-                    <%= post.entry %>
-                </p>
-                <a href="/dashboard/journal/edit/<%= post.id %> " class="button edit">Edit</a>
-                <form action="/dashboard/journal/<%= post.id %>?_method=DELETE" method="POST" class="delete">
-                    <button type="submit">Delete</button>
-                </form>
+                <%- include("../partials/messages") %>
+                    <h1 class="journal-title">
+                        <%= post.title %>
+                    </h1>
+                    <h2 class="journal-date">
+                        <%= post.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
+                            <%= post.date.toLocaleDateString() %>
+                    </h2>
+                    <h2 class="journal-rating">
+                        <%= post.rating %> / 10
+                    </h2>
+                    <p class="journal-entry">
+                        <%= post.entry %>
+                    </p>
+                    <a href="/dashboard/journal/edit/<%= post.id %> " class="button edit">Edit</a>
+                    <form action="/dashboard/journal/<%= post.id %>?_method=DELETE" method="POST" class="delete">
+                        <button type="submit">Delete</button>
+                    </form>
             </div>
     </div>
 </body>

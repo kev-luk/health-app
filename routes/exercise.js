@@ -116,6 +116,7 @@ router.put('/:id', async (req, res) => {
 
     try {
         exercise = await exercise.save()
+        req.flash('success_msg', 'Sucessfully updated')
         res.redirect(`/dashboard/exercise/${exercise.id}`)
     } catch (err) {
         req.flash('error_msg', 'Unable to save changes')

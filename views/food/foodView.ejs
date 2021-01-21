@@ -11,44 +11,45 @@
     <div class="container-grid">
         <%- include("../partials/nav") %>
             <div class="card food-card">
-                <h1 class="food-title">
-                    <%= food.name %>
-                </h1>
-                <h2 class="food-date">
-                    <%= food.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
-                        <%= food.date.toLocaleDateString() %>
-                </h2>
-                <h2 class="food-calories">
-                    <%= food.calories %> calories
-                </h2>
-                <h3 class="food-carbs">
-                    <% if(typeof food.carbs=='undefined' ) { %>
-                        N/A grams of carbohydrates
-                        <% } else {%>
-                            <%= food.carbs %> grams of carbohydrates
-                                <% } %>
-                </h3>
-                <h3 class="food-protein">
-                    <% if(typeof food.protein=='undefined' ) { %>
-                        N/A grams of protein
-                        <% } else {%>
-                            <%= food.protein %> grams of protein
-                                <% } %>
-                </h3>
-                <h3 class="food-fat">
-                    <% if(typeof food.fat=='undefined' ) { %>
-                        N/A grams of fat
-                        <% } else {%>
-                            <%= food.fat %> grams of fat
-                                <% } %>
-                </h3>
-                <p class="food-ingredients">
-                    <%= food.ingredients %>
-                </p>
-                <a href="/dashboard/food/edit/<%= food.id %> " class="button edit">Edit</a>
-                <form action="/dashboard/food/<%= food.id %>?_method=DELETE" method="POST" class="delete">
-                    <button type="submit">Delete</button>
-                </form>
+                <%- include("../partials/messages") %>
+                    <h1 class="food-name">
+                        <%= food.name %>
+                    </h1>
+                    <h2 class="food-date">
+                        <%= food.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull;
+                            <%= food.date.toLocaleDateString() %>
+                    </h2>
+                    <h2 class="food-calories">
+                        <%= food.calories %> calories
+                    </h2>
+                    <h3 class="food-carbs">
+                        <% if(food.carbs==null ) { %>
+                            0 grams of carbohydrates
+                            <% } else {%>
+                                <%= food.carbs %> grams of carbohydrates
+                                    <% } %>
+                    </h3>
+                    <h3 class="food-protein">
+                        <% if(food.protein==null ) { %>
+                            0 grams of protein
+                            <% } else {%>
+                                <%= food.protein %> grams of protein
+                                    <% } %>
+                    </h3>
+                    <h3 class="food-fat">
+                        <% if(food.fat==null ) { %>
+                            0 grams of fat
+                            <% } else {%>
+                                <%= food.fat %> grams of fat
+                                    <% } %>
+                    </h3>
+                    <p class="food-ingredients">
+                        <%= food.ingredients %>
+                    </p>
+                    <a href="/dashboard/food/edit/<%= food.id %> " class="button edit">Edit</a>
+                    <form action="/dashboard/food/<%= food.id %>?_method=DELETE" method="POST" class="delete">
+                        <button type="submit">Delete</button>
+                    </form>
             </div>
     </div>
 </body>

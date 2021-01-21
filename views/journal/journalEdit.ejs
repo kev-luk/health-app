@@ -8,12 +8,24 @@
 </head>
 
 <body>
-    <%- include("../partials/nav") %>
-        <div class="container">
-            <form action="/dashboard/mental-health/entry" method="POST">
-                <%- include("diaryPost") %>
+    <div class="container-grid">
+        <%- include("../partials/nav") %>
+            <form action="/dashboard/journal/<%= post.id %>?_method=PUT" method="POST"
+                class="card journal-card journal-edit">
+                <input required type="text" name="title" id="title" class="journal-title" placeholder="Name of activity"
+                    value="<%= post.title %>">
+
+                <input disabled type="text" name="date" id="date" class="journal-date" placeholder="Date"
+                    value="<%= post.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'}) %> &bull; <%=post.date.toLocaleDateString() %>">
+
+                <input required type="number" name="rating" id="rating" min="0" max="10" class="journal-rating"
+                    placeholder="Rating" value="<%= post.rating %>">
+
+                <textarea required name="entry" id="entry" class="journal-entry"
+                    placeholder="What's on your mind?"><%= post.entry %></textarea>
+                <button type="submit" class="button save">Save</button>
             </form>
-        </div>
+    </div>
 </body>
 
 </html>

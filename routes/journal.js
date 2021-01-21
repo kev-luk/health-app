@@ -60,6 +60,13 @@ router.get('/:id', async (req, res) => {
     })
 })
 
+router.get('/edit/:id', async (req, res) => {
+    const post = await Post.findById(req.params.id)
+    res.render('journal/journalEdit', {
+        post: post
+    })
+})
+
 router.put('/:id', async (req, res) => {
     let post = await Post.findById(req.params.id)
     const { title, rating, entry } = req.body
@@ -69,6 +76,7 @@ router.put('/:id', async (req, res) => {
 
     try {
         post = await post.save()
+        req.flash('success_msg', 'Successfully updated')
         res.redirect(`/dashboard/journal/${post.id}`)
     } catch (err) {
         req.flash('error_msg', 'Unable to save changes')
