@@ -4,8 +4,9 @@ const Food = require('../models/Food');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 
-router.get('/', async (req, res) => {
+router.get('/', ensureAuthenticated, async (req, res) => {
     const todayFood = await Food.find({
+        userID: req.user.id,
         date: {
             $gte: moment().startOf('day').toDate(),
             $lte: moment(moment().startOf('day')).endOf('day').toDate()
@@ -20,16 +21,21 @@ router.get('/', async (req, res) => {
     res.render('food/food', {
         date: moment().format('L'),
         todayFood: todayFood,
-        todayCalories: todayCalories
+        todayCalories: todayCalories,
+        days: getDays(moment().format()),
+        weekCalories: await caloriesPerDay(moment().format(), req.user.id),
+        calorieBreakdown: todayFood.map(x => x.calories).reverse(),
+        meals: todayFood.map(x => x.name).reverse(),
     });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', ensureAuthenticated, async (req, res) => {
     let date;
     try {
         date = moment(new Date(Number(req.body.year), Number(req.body.month) - 1, Number(req.body.day)))
 
         const todayFood = await Food.find({
+            userID: req.user.id,
             date: {
                 $gte: moment(date).startOf('day').toDate(),
                 $lte: moment(moment(date).startOf('day')).endOf('day').toDate()
@@ -44,7 +50,11 @@ router.post('/', async (req, res) => {
         res.render('food/food', {
             date: date.format('MM/DD/YYYY'),
             todayFood: todayFood,
-            todayCalories: todayCalories
+            todayCalories: todayCalories,
+            days: getDays(date),
+            weekCalories: await caloriesPerDay(date, req.user.id),
+            calorieBreakdown: todayFood.map(x => x.calories).reverse(),
+            meals: todayFood.map(x => x.name).reverse(),
         });
     } catch (err) {
         req.flash('error_msg', 'Please enter numeric values')
@@ -80,21 +90,21 @@ router.post('/entry', ensureAuthenticated, async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', ensureAuthenticated, async (req, res) => {
     const food = await Food.findById(req.params.id)
     res.render('food/foodView', {
         food: food
     })
 })
 
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, async (req, res) => {
     const food = await Food.findById(req.params.id)
     res.render('food/foodEdit', {
         food: food
     })
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', ensureAuthenticated, async (req, res) => {
     let food = await Food.findById(req.params.id)
     const { name, calories, carbs, protein, fat, ingredients } = req.body
     food.name = name
@@ -116,9 +126,47 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', ensureAuthenticated, async (req, res) => {
     await Food.findByIdAndDelete(req.params.id)
     res.redirect('/dashboard/food')
 })
+
+function getDays(date) {
+    const dates = []
+    const NUM_OF_DAYS = 7
+
+    for (let i = 0; i < NUM_OF_DAYS; i++) {
+        let o = moment(date).subtract(i, 'day').format('MM-DD')
+        dates.push(o);
+    }
+
+    return dates.reverse();
+}
+
+async function caloriesPerDay(date, id) {
+    const calories = []
+    const NUM_OF_DAYS = 7
+
+    for (let i = 0; i < NUM_OF_DAYS; i++) {
+        const o = moment(date).subtract(i, 'day')
+
+        const dayCalories = await Food.find({
+            userID: id,
+            date: {
+                $gte: moment(o).startOf('day').toDate(),
+                $lte: moment(moment(o).startOf('day')).endOf('day').toDate()
+            },
+        })
+
+        let totalDay = 0
+        dayCalories.forEach((food) => {
+            totalDay += food.calories
+        })
+
+        calories.push(totalDay)
+    }
+
+    return calories.reverse()
+}
 
 module.exports = router;

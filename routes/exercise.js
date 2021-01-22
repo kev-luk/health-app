@@ -4,8 +4,9 @@ const moment = require('moment')
 const Exercise = require('../models/Exercise');
 const { ensureAuthenticated } = require('../config/auth');
 
-router.get('/', async (req, res) => {
+router.get('/', ensureAuthenticated, async (req, res) => {
     const todayExercise = await Exercise.find({
+        userID: req.user.id,
         date: {
             $gte: moment().startOf('day').toDate(),
             $lte: moment(moment().startOf('day')).endOf('day').toDate()
@@ -26,16 +27,19 @@ router.get('/', async (req, res) => {
         date: moment().format('L'),
         todayExercise: todayExercise,
         todayTime: todayTime,
-        todayCalories: todayCalories
+        todayCalories: todayCalories,
+        days: getDays(moment().format()),
+        weekCalories: await exercisePerDay(moment().format(), req.user.id),
     });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', ensureAuthenticated, async (req, res) => {
     let date;
     try {
         date = moment(new Date(Number(req.body.year), Number(req.body.month) - 1, Number(req.body.day)))
 
         const todayExercise = await Exercise.find({
+            userID: req.user.id,
             date: {
                 $gte: moment(date).startOf('day').toDate(),
                 $lte: moment(moment(date).startOf('day')).endOf('day').toDate()
@@ -56,7 +60,9 @@ router.post('/', async (req, res) => {
             date: date.format('MM/DD/YYYY'),
             todayExercise: todayExercise,
             todayTime: todayTime,
-            todayCalories: todayCalories
+            todayCalories: todayCalories,
+            days: getDays(date),
+            weekCalories: await exercisePerDay(date, req.user.id),
         });
     } catch (err) {
         req.flash('error_msg', 'Please enter numeric values')
@@ -92,21 +98,21 @@ router.post('/entry', ensureAuthenticated, async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', ensureAuthenticated, async (req, res) => {
     const exercise = await Exercise.findById(req.params.id)
     res.render('exercise/exerciseView', {
         exercise: exercise
     })
 })
 
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, async (req, res) => {
     const exercise = await Exercise.findById(req.params.id)
     res.render('exercise/exerciseEdit', {
         exercise: exercise
     })
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', ensureAuthenticated, async (req, res) => {
     let exercise = await Exercise.findById(req.params.id)
     const { activity, time, caloriesBurned, description } = req.body
     exercise.activity = activity
@@ -126,9 +132,47 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', ensureAuthenticated, async (req, res) => {
     await Exercise.findByIdAndDelete(req.params.id)
     res.redirect('/dashboard/exercise')
 })
+
+function getDays(date) {
+    const dates = []
+    const NUM_OF_DAYS = 7
+
+    for (let i = 0; i < NUM_OF_DAYS; i++) {
+        let o = moment(date).subtract(i, 'day').format('MM-DD')
+        dates.push(o);
+    }
+
+    return dates.reverse();
+}
+
+async function exercisePerDay(date, id) {
+    const burned = []
+    const NUM_OF_DAYS = 7
+
+    for (let i = 0; i < NUM_OF_DAYS; i++) {
+        const o = moment(date).subtract(i, 'day')
+
+        const dayExercise = await Exercise.find({
+            userID: id,
+            date: {
+                $gte: moment(o).startOf('day').toDate(),
+                $lte: moment(moment(o).startOf('day')).endOf('day').toDate()
+            },
+        })
+
+        let burnedDay = 0
+        dayExercise.forEach((exercise) => {
+            burnedDay += exercise.caloriesBurned
+        })
+
+        burned.push(burnedDay)
+    }
+
+    return burned.reverse()
+}
 
 module.exports = router;

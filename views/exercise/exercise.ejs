@@ -66,7 +66,7 @@
                 </h3>
                 <h4>Minutes</h4>
             </div>
-            <div class="log exercise-log">
+            <div class="log entry-log">
                 <% if(todayExercise.length==0) { %>
                     <h1>
                         <%= date %>
@@ -76,7 +76,7 @@
                         <h1>
                             <%= date %>
                         </h1>
-                        <div class="exercise-list">
+                        <div class="entry-list">
                             <% todayExercise.forEach(exercise=> { %>
                                 <a href="/dashboard/exercise/<%= exercise.id %>" class="exercise-post">
                                     <div>
@@ -100,11 +100,8 @@
                         <% } %>
                             <button class="change-date button">Change Date</button>
             </div>
-            <div class="data-graph-line">
-                <canvas id="myChart1"></canvas>
-            </div>
-            <div class="data-graph-line">
-                <canvas id="myChart1"></canvas>
+            <div class="graph exercise-line">
+                <canvas id="bar"></canvas>
             </div>
             <button class="button new-entry">
                 Add Activity
@@ -113,46 +110,50 @@
     <script src="/js/app.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
     <script>
-        let ctx = document.getElementById('myChart1');
-        let myChart = new Chart(ctx, {
+        let rawCaloriesBurned = '<%= weekCalories %>'
+        const formatCaloriesBurned = rawCaloriesBurned.split(",")
+
+        let rawDay = '<%= days %>'
+        const formatDay = rawDay.split(",")
+
+        const chart2 = new Chart(document.getElementById('bar'), {
             type: 'line',
             data: {
-                labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
+                labels: formatDay,
                 datasets: [{
-                    data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-                    label: "Africa",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }, {
-                    data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-                    label: "Asia",
-                    borderColor: "#8e5ea2",
-                    fill: false
-                }, {
-                    data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
-                    label: "Europe",
-                    borderColor: "#3cba9f",
-                    fill: false
-                }, {
-                    data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
-                    label: "Latin America",
-                    borderColor: "#e8c3b9",
-                    fill: false
-                }, {
-                    data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
-                    label: "North America",
-                    borderColor: "#c45850",
-                    fill: false
-                }
-                ]
+                    label: 'Calories',
+                    data: formatCaloriesBurned,
+                    fill: false,
+                    borderColor: "#0388fc",
+                }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Date'
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Calories Burned'
+                        }
+                    }]
+                },
                 title: {
                     display: true,
-                    text: 'World population per region (in millions)'
-                }
+                    text: 'Exercise in Past 7 Days',
+                    fontColor: '#000000',
+                    fontFamily: "'Fira Sans', sans-serif",
+                    fontSize: 20
+                },
             }
         });
     </script>

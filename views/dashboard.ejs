@@ -27,7 +27,7 @@
                     <h2>
                         <%= date %>
                     </h2>
-                    <h1>Hello Kevin!</h1>
+                    <h1>Hello <%= name %>!</h1>
                     <button class="change-date">Change Date</button>
                 </div>
                 <a href="/dashboard/food" class="dashboard-box">
@@ -51,26 +51,56 @@
                     </h3>
                     <h4>Posts</h4>
                 </a>
-                <div class="data-graph">
-                    <canvas id="myChart1"></canvas>
+                <div class="graph data-dough">
+                    <canvas id="doughnut"></canvas>
                 </div>
-                <div class="data-graph-dough">
-                    <canvas id="myChart2"></canvas>
+                <div class="graph data-line">
+                    <canvas id="bar"></canvas>
                 </div>
     </div>
     <script src="/js/app.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
     <script>
-        let rawCaloriesBurned = ('<%= weekCalories %>')
-        let formatCaloriesBurned = rawCaloriesBurned.split(",")
-        let rawDay = '<%= days %>'
-        let formatDay = rawDay.split(",")
-        // let rawData = '<%# posts %>'
-        // let formatData = rawData.split(",")
+        let rawCalBreakdown = '<%= calorieBreakdown %>'
+        const formatCalBreakdown = rawCalBreakdown.split(",")
 
-        var ctx = document.getElementById('myChart1');
-        var ctx2 = document.getElementById('myChart2');
-        var myChart = new Chart(ctx, {
+        let rawFoodName = '<%= meals %>'
+        const formatFoodName = rawFoodName.split(",")
+
+        const chart = new Chart(document.getElementById("doughnut"), {
+            type: 'doughnut',
+            data: {
+                labels: formatFoodName[0] == "" ? ['No data'] : formatFoodName,
+                datasets: [{
+                    label: 'Calories',
+                    data: formatCalBreakdown[0] == "" ? [100] : formatCalBreakdown,
+                    backgroundColor: genColor(formatFoodName.length),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: "Today's Calorie Breakdown",
+                    fontColor: '#000000',
+                    fontFamily: "'Fira Sans', sans-serif",
+                    fontSize: 20
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+
+        let rawCaloriesBurned = '<%= weekCalories %>'
+        const formatCaloriesBurned = rawCaloriesBurned.split(",")
+
+        let rawDay = '<%= days %>'
+        const formatDay = rawDay.split(",")
+
+        const chart2 = new Chart(document.getElementById('bar'), {
             type: 'bar',
             data: {
                 labels: formatDay,
@@ -104,56 +134,31 @@
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Calories'
+                            labelString: 'Calories Burned'
                         }
                     }]
                 },
                 title: {
                     display: true,
-                    text: 'Calories Burned per Day in Past 7 Days',
-                    fontColor: '#D72638',
+                    text: 'Exercise in Past 7 Days',
+                    fontColor: '#000000',
                     fontFamily: "'Fira Sans', sans-serif",
-                    fontSize: 24
+                    fontSize: 20
                 },
             }
         });
 
-        var chart = new Chart(document.getElementById("myChart2"), {
-            type: 'doughnut',
-            data: {
-                labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                title: {
-                    display: true,
-                    text: "Today's Calorie Breakdown",
-                    fontColor: '#D72638',
-                    fontFamily: "'Fira Sans', sans-serif",
-                    fontSize: 24
-                },
-                legend: {
-                    position: 'bottom',
-                },
+        function genColor(num) {
+            const colors = []
+
+            while (colors.length != num) {
+                const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+                if (!colors.includes("#" + randomColor) && randomColor.length == 6) {
+                    colors.push("#" + randomColor)
+                }
             }
-        });
 
-        function genColor() {
-
+            return colors
         }
 
     </script>

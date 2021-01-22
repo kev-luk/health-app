@@ -4,20 +4,21 @@ const moment = require('moment')
 const Post = require('../models/Post');
 const { ensureAuthenticated } = require('../config/auth');
 
-router.get('/', async (req, res) => {
-    const posts = await Post.find().sort({ date: 'descending' })
+router.get('/', ensureAuthenticated, async (req, res) => {
+    const posts = await Post.find({ userID: req.user.id }).sort({ date: 'descending' })
 
     res.render('journal/journal', {
         posts: posts
     });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', ensureAuthenticated, async (req, res) => {
     let date;
     try {
         date = moment(new Date(Number(req.body.year), Number(req.body.month) - 1, Number(req.body.day)))
 
         const posts = await Post.find({
+            userID: req.user.id,
             date: {
                 $gte: moment(date).startOf('day').toDate(),
                 $lte: moment(moment(date).startOf('day')).endOf('day').toDate()
@@ -53,21 +54,21 @@ router.post('/entry', ensureAuthenticated, async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', ensureAuthenticated, async (req, res) => {
     const post = await Post.findById(req.params.id)
     res.render('journal/journalView', {
         post: post
     })
 })
 
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, async (req, res) => {
     const post = await Post.findById(req.params.id)
     res.render('journal/journalEdit', {
         post: post
     })
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', ensureAuthenticated, async (req, res) => {
     let post = await Post.findById(req.params.id)
     const { title, rating, entry } = req.body
     post.title = title
@@ -86,7 +87,7 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', ensureAuthenticated, async (req, res) => {
     await Post.findByIdAndDelete(req.params.id)
     res.redirect('/dashboard/journal')
 })
