@@ -52,7 +52,7 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
         todayCaloriesBurned: todayCaloriesBurned,
         totalPosts: posts.length,
         // date: moment().utc().local().format('LLL'),
-        date: new Date(),
+        date: new Date().toLocaleDateString(),
         calorieBreakdown: todayFood.map(x => x.calories).reverse(),
         weekCalories: await exercisePerDay(moment().format(), req.user.id),
         meals: todayFood.map(x => x.name).reverse(),
