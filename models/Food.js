@@ -23,7 +23,7 @@ const foodSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now,
+        default: Date,
         required: true,
     },
     userID: {

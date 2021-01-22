@@ -65,7 +65,7 @@ body {
     text-decoration: none;
     width: 100%;
     padding: 0.6em;
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
     color: #ffffff;
     font-weight: 600;
@@ -117,7 +117,7 @@ label {
     padding: 0.6em;
     width: 100%;
     border: 2px solid #e7e7e7;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
     transition-property: box-shadow;
     transition-duration: 200ms;
@@ -136,7 +136,7 @@ textarea {
     resize: none;
     outline: none;
     padding: 0.6em;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 2px solid #e7e7e7;
     width: 100%;
     transition-property: box-shadow;
@@ -152,7 +152,7 @@ input {
     width: 100%;
     height: 100%;
     border: 2px solid #e7e7e7;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
     transition-property: box-shadow;
     transition-duration: 200ms;
@@ -177,7 +177,7 @@ input:focus {
     grid-column: span 6;
     text-align: center;
     padding: 0.6em;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 100%;
     margin-bottom: 0.6em;
 }
@@ -219,7 +219,7 @@ input:focus {
     padding: 0.75em;
     color: #000000;
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
     0 2px 2px rgba(0,0,0,0.20), 
     0 4px 4px rgba(0,0,0,0.15), 
@@ -259,7 +259,7 @@ input:focus {
     outline: none;
     color: #ffffff;
     padding: 0.6em;
-    border-radius: 5px;
+    border-radius: 10px;
     text-align: center;
     transition-property: opacity;
     transition-duration: 200ms;
@@ -272,7 +272,7 @@ input:focus {
 #logout {
     font-weight: 700;
     padding: 0.4em;
-    border-radius: 5px;
+    border-radius: 10px;
     color: #ffffff;
     background-color: rgba(255, 12, 0, 0.8);
     border: 2px solid rgba(255, 12, 0, 1);
@@ -288,12 +288,12 @@ input:focus {
     width: 100vw;
     height: 100vh;
     background-color: #e2e2e2;
-    padding: 1.25em;
+    padding: 1em;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(12, 1fr);
-    row-gap: 1.25em;
-    column-gap: 1.25em;
+    row-gap: 1em;
+    column-gap: 1em;
 }
 
 .dashboard-header {
@@ -302,7 +302,7 @@ input:focus {
     align-items: center;
     grid-column: span 12;
     text-align: left;
-    border-radius: 5px;
+    border-radius: 10px;
     color: rgba(0, 47, 255, 0.7);
     background-color: #ffffff;
     padding: 1em;
@@ -321,7 +321,7 @@ input:focus {
     grid-column: span 4;
     background-color: #ffffff;
     padding: 0.75em;
-    border-radius: 5px;
+    border-radius: 10px;
     text-align: center;
     color: black;
     text-decoration: none;
@@ -339,11 +339,11 @@ input:focus {
     transform: translateY(3px);
 }
 
-.dashboard-box h2 {
+.dashboard-box h3 {
     color: #D72638;
 }
 
-.dashboard-box > h3 {
+.dashboard-box > h4 {
     margin-top: 0.2em;
     margin-bottom: 0.2em;
 }
@@ -354,7 +354,7 @@ input:focus {
     grid-row: span 4;
     overflow: auto;
     padding: 1em;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
     0 2px 2px rgba(0,0,0,0.20), 
     0 4px 4px rgba(0,0,0,0.15), 
@@ -364,12 +364,12 @@ input:focus {
 
 .graph {
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2em;
+    padding: 1em;
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
     0 2px 2px rgba(0,0,0,0.20), 
     0 4px 4px rgba(0,0,0,0.15), 
@@ -401,7 +401,7 @@ input:focus {
 }
 
 .modal-content {
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 10% auto;
     background-color: #e1e1e1;
     width: 30%;
@@ -438,7 +438,7 @@ input:focus {
 
 .modal-content {
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .modal-form {
@@ -477,11 +477,11 @@ input:focus {
     align-items: center;
 }
 
-.entry-log > h1, .exercise-log > h3 {
+.entry-log > h2, .entry-log > h3 {
     text-align: center;
 }
 
-.entry-log > h1 {
+.entry-log > h2 {
     margin-bottom: 0.2em;
     border-bottom: 3px solid #D72638;
 }
@@ -530,9 +530,9 @@ input:focus {
     animation-duration: 300ms;
 }
 
-.exercise-post {
+.log-post {
     display: block;
-    border-radius: 5px;
+    border-radius: 10px;
     color: black;
     text-decoration: none;
     margin-bottom: 0.75em;
@@ -540,8 +540,12 @@ input:focus {
     transition-duration: 200ms;
 }
 
-.exercise-post:hover {
-    opacity: 0.7;
+.log-post > div > p {
+    font-size: 0.75rem;
+}
+
+.log-post:hover {
+    opacity: 0.6;
 }
 
 .food-box {
@@ -568,7 +572,7 @@ input:focus {
 .card { 
     grid-column: 3 / 11;
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 2em;
     width: 100%;
     height: 100%;
@@ -590,7 +594,7 @@ input:focus {
     background-color: #17a2b8;
     color: #ffffff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .delete {
@@ -606,7 +610,7 @@ input:focus {
     height: 100%;
     background-color: #D72638;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     border-color: #D72638;
     border-style: solid;
     font-weight: 600;
@@ -631,7 +635,7 @@ button:hover {
     background-color:rgba(0, 47, 255, 0.7);
     border: none;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     border-style: solid;
     font-weight: 600;
     outline: none;
@@ -656,7 +660,7 @@ button:hover {
 
 .food-carbs, .food-protein, .food-fat {
     grid-column: span 2;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 .food-ingredients {
     grid-column: span 6;
@@ -716,7 +720,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
     0 2px 2px rgba(0,0,0,0.20), 
     0 4px 4px rgba(0,0,0,0.15), 
@@ -724,7 +728,7 @@ button:hover {
     0 16px 16px rgba(0,0,0,0.05);
 }
 
-.journal-form > h1 {
+.journal-form > h2 {
     border-bottom: 3px solid #D72638;
     margin-bottom: 0.6em;
 }
@@ -740,7 +744,7 @@ button:hover {
     width: 100%;
     height: 100%;
     border: 2px solid #e7e7e7;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
     transition-property: box-shadow;
     transition-duration: 200ms;
@@ -761,10 +765,11 @@ button:hover {
     background-color: #ffffff;
     overflow: auto;
     padding: 1em;
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     box-shadow: 0 1px 1px rgba(0,0,0,0.25), 
     0 2px 2px rgba(0,0,0,0.20), 
     0 4px 4px rgba(0,0,0,0.15), 
@@ -772,8 +777,13 @@ button:hover {
     0 16px 16px rgba(0,0,0,0.05);
 }
 
-.journal-log > h1, .journal-log > h3 {
+.journal-log > h2, .journal-log > h3 {
     text-align: center;
+}
+
+.journal-log > h2 {
+    border-bottom: 3px solid #D72638;
+    margin-bottom: 0.6em;
 }
 
 .journal-list {

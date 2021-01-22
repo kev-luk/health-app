@@ -22,7 +22,7 @@
     <div class="container-grid">
         <%- include("../partials/nav") %>
             <form action="/dashboard/journal/entry" method="POST" class="journal-form">
-                <h1>New Entry</h1>
+                <h2>New Entry</h2>
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input required type="text" name="title" id="title" placeholder="Entry Title" class="form-input">
@@ -40,17 +40,17 @@
             </form>
             <div class="journal-log">
                 <% if(posts.length==0) { %>
-                    <h1>
+                    <h2>
                         Post History
-                    </h1>
+                    </h2>
                     <h3>No Entries</h3>
                     <% } else { %>
-                        <h1>
+                        <h2>
                             Post History
-                        </h1>
+                        </h2>
                         <div class="journal-list">
                             <% posts.forEach(post=> { %>
-                                <a href="/dashboard/journal/<%= post.id %>" class="exercise-post">
+                                <a href="/dashboard/journal/<%= post.id %>" class="log-post">
                                     <div>
                                         <h3>
                                             <%= post.title %>

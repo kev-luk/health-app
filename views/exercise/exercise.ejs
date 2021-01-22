@@ -53,46 +53,46 @@
     <div class="container-grid">
         <%- include("../partials/nav") %>
             <div class="dashboard-box exercise-box">
-                <h2>Calories Burned</h2>
-                <h3>
+                <h3>Calories Burned</h3>
+                <h4>
                     <%= todayCalories %>
-                </h3>
-                <h4>Calories</h4>
+                </h4>
+                <h5>Calories</h5>
             </div>
             <div class="dashboard-box exercise-box">
-                <h2>Exercise Time</h2>
-                <h3>
+                <h3>Exercise Time</h3>
+                <h4>
                     <%= todayTime %>
-                </h3>
-                <h4>Minutes</h4>
+                </h4>
+                <h5>Minutes</h5>
             </div>
             <div class="log entry-log">
                 <% if(todayExercise.length==0) { %>
-                    <h1>
+                    <h2>
                         <%= date %>
-                    </h1>
+                    </h2>
                     <h3>No Activity</h3>
                     <% } else { %>
-                        <h1>
+                        <h2>
                             <%= date %>
-                        </h1>
+                        </h2>
                         <div class="entry-list">
                             <% todayExercise.forEach(exercise=> { %>
-                                <a href="/dashboard/exercise/<%= exercise.id %>" class="exercise-post">
+                                <a href="/dashboard/exercise/<%= exercise.id %>" class="log-post">
                                     <div>
-                                        <h3>
+                                        <h4>
                                             <%= exercise.activity %>
-                                        </h3>
+                                        </h4>
                                         <p>
                                             <%= exercise.time %> minutes
                                         </p>
                                         <p>
                                             <%= exercise.caloriesBurned %> calories burned
                                         </p>
-                                        <h5>
+                                        <h6>
                                             <%= exercise.date.toLocaleTimeString([], {hour: '2-digit' ,
                                                 minute:'2-digit'}) %>
-                                        </h5>
+                                        </h6>
                                     </div>
                                 </a>
                                 <% }) %>

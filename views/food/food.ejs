@@ -63,36 +63,36 @@
     <div class="container-grid">
         <%- include("../partials/nav") %>
             <div class="dashboard-box food-box">
-                <h2>Calories Consumed</h2>
-                <h3>
+                <h3>Calories Consumed</h3>
+                <h4>
                     <%= todayCalories %>
-                </h3>
-                <h4>Calories</h4>
+                </h4>
+                <h5>Calories</h5>
             </div>
             <div class="log entry-log">
                 <% if(todayFood.length==0) { %>
-                    <h1>
+                    <h2>
                         <%= date %>
-                    </h1>
+                    </h2>
                     <h3>No Food</h3>
                     <% } else { %>
-                        <h1>
+                        <h2>
                             <%= date %>
-                        </h1>
+                        </h2>
                         <div class="entry-list">
                             <% todayFood.forEach(food=> { %>
-                                <a href="/dashboard/food/<%= food.id %>" class="exercise-post">
+                                <a href="/dashboard/food/<%= food.id %>" class="log-post">
                                     <div>
-                                        <h3>
+                                        <h4>
                                             <%= food.name %>
-                                        </h3>
+                                        </h4>
                                         <p>
                                             <%= food.calories %> calories
                                         </p>
-                                        <h5>
+                                        <h6>
                                             <%= food.date.toLocaleTimeString([], {hour: '2-digit' , minute:'2-digit'})
                                                 %>
-                                        </h5>
+                                        </h6>
                                     </div>
                                 </a>
                                 <% }) %>

@@ -44,7 +44,7 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
         todayCalories: todayCalories,
         todayCaloriesBurned: todayCaloriesBurned,
         totalPosts: posts.length,
-        date: moment().format('L'),
+        date: Date(),
         calorieBreakdown: todayFood.map(x => x.calories).reverse(),
         weekCalories: await exercisePerDay(moment().format(), req.user.id),
         meals: todayFood.map(x => x.name).reverse(),
