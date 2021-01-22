@@ -67,6 +67,7 @@ body {
     padding: 0.6em;
     border-radius: 10px;
     border: none;
+    outline: none;
     color: #ffffff;
     font-weight: 600;
     transition-property: opacity;

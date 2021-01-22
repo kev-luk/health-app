@@ -17,7 +17,7 @@ const exerciseSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date,
+        default: Date.now,
         required: true,
     },
     userID: {

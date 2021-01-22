@@ -14,16 +14,23 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
     const todayFood = await Food.find({
         userID: req.user.id,
         date: {
-            $gte: moment().startOf('day').toDate(),
-            $lte: moment(moment().startOf('day')).endOf('day').toDate()
+            $gte: moment().utc().local().startOf('day').toDate(),
+            $lte: moment(moment().utc().local().startOf('day')).endOf('day').toDate()
         },
     }).sort({ date: 'descending' })
+
+    // console.log(moment().utc().toDate())
+    // console.log((moment().utc().local()).toDate())
+    // console.log(moment().utc().local().startOf('day').toDate())
+    // console.log(moment(moment().utc().local().startOf('day')).endOf('day').toDate())
+    // console.log(moment().utc().startOf('day').toDate())
+    // console.log(moment(moment().utc().startOf('day')).endOf('day').toDate())
 
     const todayExercise = await Exercise.find({
         userID: req.user.id,
         date: {
-            $gte: moment().startOf('day').toDate(),
-            $lte: moment(moment().startOf('day')).endOf('day').toDate()
+            $gte: moment().utc().local().startOf('day').toDate(),
+            $lte: moment(moment().utc().local().startOf('day')).endOf('day').toDate()
         },
     }).sort({ date: 'descending' })
 
@@ -39,20 +46,16 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
         todayCaloriesBurned += exercise.caloriesBurned
     })
 
-    var d1 = new Date();
-    var x = d1.toUTCString();
-    var date = new Date(x);
-
     res.render('dashboard', {
         name: req.user.name,
         todayCalories: todayCalories,
         todayCaloriesBurned: todayCaloriesBurned,
         totalPosts: posts.length,
-        date: moment(moment().utc()).local().format('MM/DD/YYYY'),
+        date: moment().utc().local().format('LLL'),
         calorieBreakdown: todayFood.map(x => x.calories).reverse(),
         weekCalories: await exercisePerDay(moment().format(), req.user.id),
         meals: todayFood.map(x => x.name).reverse(),
-        days: getDays(moment().utc().local()),
+        days: getDays(moment().format()),
     })
 });
 
