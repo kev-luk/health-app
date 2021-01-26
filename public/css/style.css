@@ -757,11 +757,6 @@ button:hover {
     box-shadow: 0 0 4px #D72638;
 }
 
-.journal-form > button {
-    background-color: #D72638;
-    font-size: 1rem;
-}
-
 .journal-log {
     grid-column: 7 / 13;
     grid-row: 2 / 13;
